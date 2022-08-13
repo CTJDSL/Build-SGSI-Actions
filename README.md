@@ -1,5 +1,5 @@
 # Build-SGSI-Actions
-Build SGSIs using github actions using rahulkhatri137's sgsi tool.
+Build SGSIs (Only AB) using github actions with rahulkhatri137's sgsi tool.
 
 
 Guide:
@@ -9,4 +9,8 @@ Guide:
 - Click 'Run workflow'.
 - Fill the required fields.
 - Start the action.
+- Wait till it finishes porting.
 - Done!
+
+
+This repository is only for educational purposes only. Do not abuse the service. 
