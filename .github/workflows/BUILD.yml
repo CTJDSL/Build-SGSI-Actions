@@ -15,10 +15,6 @@ on:
         description: 'OS type'
         required: true
         default: 'MIUI'
-      SGSI_TYPE:
-        description: 'sgsi type'
-        required: true
-        default: 'AB'
       REPACK_NAME:
         description: 'repack name'
         required: true
