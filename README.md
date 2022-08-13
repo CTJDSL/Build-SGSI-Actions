@@ -3,7 +3,7 @@ Build SGSIs using github actions using rahulkhatri137's sgsi tool.
 
 
 Guide:
-- For this repository.
+- Fork this repository.
 - Go to actions tab.
 - Click 'build sgsi'
 - Fill the required fields.
