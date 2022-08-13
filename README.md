@@ -13,4 +13,4 @@ Guide:
 - Done!
 
 
-This repository is only for educational purposes only. Do not abuse the service. 
+This repository is only for educational purposes. Do not abuse the service. 
