@@ -1,0 +1,62 @@
+name: build sgsi
+
+on:
+  workflow_dispatch:
+    inputs:
+      ROM_URL:
+        description: 'ROM link'
+        required: true
+        default: 'https://versaweb.dl.sourceforge.net/project/xiaomi-eu-multilang-miui-roms/xiaomi.eu/MIUI-WEEKLY-RELEASES/22.8.10/xiaomi.eu_multi_HMNote94G_HM9T_22.8.10_v13-12.zip'
+      ZIP_NAME:
+        description: 'ZIP name'
+        required: true
+        default: 'xiaomi.eu_multi_HMNote94G_HM9T_22.8.10_v13-12.zip'
+      OS_TYPE:
+        description: 'OS type'
+        required: true
+        default: 'MIUI'
+      SGSI_TYPE:
+        description: 'sgsi type'
+        required: true
+        default: 'AB'
+      REPACK_NAME:
+        description: 'repack name'
+        required: true
+        default: 'test'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Get the source code of this repository...
+        uses: actions/checkout@main
+      - name: Preparing stuff...
+        run: |
+          sudo apt update && sudo apt-get install -y git unzip curl aria2 expect
+
+      - name: Get the SGSI tool‌‌...
+        run: |
+          git clone --recurse-submodules https://github.com/As9124k82134/SGSI-Build-Tool.git -b main $GITHUB_WORKSPACE/Tool-SGSI-build
+
+      - name: Setup tool environment...
+        run: |
+          sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/setup.sh
+          sudo apt-get -y --purge remove "adoptopenjdk-11-hotspot"
+
+      - name: Build SGSI...
+        run: |
+          sudo bash $GITHUB_WORKSPACE/Tool-SGSI-build/url2SGSI.sh ${{ github.event.inputs.ROM_URL }} ${{ github.event.inputs.OS_TYPE }}:${{ github.event.inputs.REPACK_NAME }}
+          
+      - name: Repack output file...
+        run: |            
+          cd $GITHUB_WORKSPACE/Tool-SGSI-build
+          sudo chmod -R 777 output ; cd output
+          gzip -qf9 *img
+          sudo rm -rf *.img          
+          
+      - name: Upload SGSI to WeTransfer...
+        run: |
+          cd $GITHUB_WORKSPACE/Tool-SGSI-build/output
+          curl -sL https://git.io/file-transfer | sh
+          ./transfer wet /*.img.gz
