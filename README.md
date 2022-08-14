@@ -7,6 +7,7 @@ Guide:
 - Go to actions tab.
 - Click 'build sgsi'.
 - Click 'Run workflow'.
+- Choose branch for android version. (Dont forget to check.)
 - Fill the required fields.
 - Start the action.
 - Wait till it finishes porting.
