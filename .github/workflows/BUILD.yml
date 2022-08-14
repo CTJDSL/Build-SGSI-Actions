@@ -55,4 +55,4 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/Tool-SGSI-build/output
           curl -sL https://git.io/file-transfer | sh
-          ./transfer wet /*.img.gz
+          ./transfer wet ./*.img.gz
